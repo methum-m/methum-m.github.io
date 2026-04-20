@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methum Thimbiripola</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0f0f;
+    --bg2: #151616;
+    --bg3: #1c1d1d;
+    --text: #e8e4dc;
+    --text-muted: #7a7870;
+    --text-dim: #4a4845;
+    --accent: #c8b89a;
+    --accent2: #7eb8a4;
+    --border: #252625;
+    --border-light: #2e2f2e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: #c8b89a33; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(14,15,15,0.85);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 2rem 5rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 20% 80%, black 0%, transparent 70%);
+    opacity: 0.4;
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--accent2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.35s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    max-width: 540px;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.5s forwards;
+  }
+
+  .hero-links {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.65s forwards;
+  }
+
+  .btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    padding: 0.6rem 1.25rem;
+    border: 1px solid var(--border-light);
+    color: var(--text-muted);
+    text-decoration: none;
+    background: transparent;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+
+  .btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(200,184,154,0.05);
+  }
+
+  .btn-primary {
+    border-color: var(--accent2);
+    color: var(--accent2);
+  }
+
+  .btn-primary:hover {
+    border-color: var(--accent2);
+    color: var(--bg);
+    background: var(--accent2);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── WORK ── */
+  .work-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .work-item:last-child { border-bottom: none; }
+
+  .work-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 2rem; flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .work-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .work-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--accent2);
+    white-space: nowrap;
+    padding-top: 0.2rem;
+  }
+
+  .work-desc {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    max-width: 620px;
+  }
+
+  .work-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border-light);
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .work-links {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+
+  .work-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+    padding-bottom: 1px;
+  }
+
+  .work-link:hover { border-color: var(--accent); }
+
+  .status-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.6rem;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .status-active {
+    border: 1px solid rgba(126,184,164,0.4);
+    color: var(--accent2);
+    background: rgba(126,184,164,0.06);
+  }
+
+  .status-wip {
+    border: 1px solid rgba(200,184,154,0.3);
+    color: var(--accent);
+    background: rgba(200,184,154,0.05);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .about-text p {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-facts {
+    display: flex; flex-direction: column; gap: 0;
+  }
+
+  .fact-row {
+    display: flex; flex-direction: column;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .fact-row:first-child { border-top: 1px solid var(--border); }
+
+  .fact-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .fact-value {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2.5rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+  }
+
+  .footer-links {
+    display: flex; gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { gap: 1.25rem; }
+    .hero { padding: 0 1.25rem 4rem; }
+    section { padding: 4rem 1.25rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    footer { padding: 2rem 1.25rem; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">methum.me</span>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://github.com/methum-m" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <p class="hero-tag">Computing &amp; Security / Sri Lanka</p>
+  <h1 class="hero-name">Methum<br><em>Thimbiripola</em></h1>
+  <p class="hero-desc">
+    Computing student contributing to enterprise Java security tooling.
+    Focused on cloud infrastructure, DevSecOps, and open source systems work.
+  </p>
+  <div class="hero-links">
+    <a href="#work" class="btn btn-primary">View work</a>
+    <a href="https://github.com/methum-m" target="_blank" rel="noopener" class="btn">GitHub</a>
+    <a href="mailto:hello@methum.me" class="btn">Contact</a>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <p class="section-label">Selected work</p>
+
+  <!-- WildFly Elytron -->
+  <div class="work-item">
+    <span class="status-badge status-active">Active contribution</span>
+    <div class="work-header">
+      <h2 class="work-title">WildFly Elytron</h2>
+      <span class="work-meta">2025 — present</span>
+    </div>
+    <p class="work-desc">
+      Contributed test coverage to WildFly Elytron, the enterprise Java security framework
+      powering authentication and TLS in Red Hat's WildFly application server.
+      Work spans OIDC path resolution, JWT token validation, and dynamic TLS SSL context
+      selection by hostname — all security-critical subsystems inside a production codebase.
+    </p>
+    <div class="work-tags">
+      <span class="tag">Java</span>
+      <span class="tag">TLS / SSL</span>
+      <span class="tag">OIDC</span>
+      <span class="tag">JWT</span>
+      <span class="tag">Open Source</span>
+      <span class="tag">JBoss / Red Hat</span>
+    </div>
+    <div class="work-links">
+      <a href="https://github.com/wildfly-security/wildfly-elytron" target="_blank" rel="noopener" class="work-link">Repository →</a>
+      <a href="https://github.com/methum-m/wildfly-elytron" target="_blank" rel="noopener" class="work-link">My fork →</a>
+    </div>
+  </div>
+
+  <!-- Log Ingestion System -->
+  <div class="work-item">
+    <span class="status-badge status-wip">In progress</span>
+    <div class="work-header">
+      <h2 class="work-title">Log Ingestion &amp; Search System</h2>
+      <span class="work-meta">2026</span>
+    </div>
+    <p class="work-desc">
+      A self-built log ingestion pipeline with a custom inverted index for full-text search.
+      Designed to demonstrate practical infrastructure and systems knowledge beyond
+      framework-level work — the inverted index is hand-rolled rather than delegated
+      to a third-party search engine.
+    </p>
+    <div class="work-tags">
+      <span class="tag">Java</span>
+      <span class="tag">Inverted Index</span>
+      <span class="tag">Infrastructure</span>
+      <span class="tag">DevOps</span>
+    </div>
+    <div class="work-links">
+      <a href="https://github.com/methum-m" target="_blank" rel="noopener" class="work-link">GitHub →</a>
+    </div>
+  </div>
+
+  <!-- Home Lab -->
+  <div class="work-item">
+    <div class="work-header">
+      <h2 class="work-title">Self-hosted Home Lab</h2>
+      <span class="work-meta">Ongoing</span>
+    </div>
+    <p class="work-desc">
+      Administered a personal Debian server running multiple self-hosted services.
+      Hands-on Linux systems work covering service management, networking, and
+      server hardening — the kind of infrastructure experience that doesn't come
+      from coursework.
+    </p>
+    <div class="work-tags">
+      <span class="tag">Debian / Linux</span>
+      <span class="tag">Self-hosting</span>
+      <span class="tag">Sysadmin</span>
+      <span class="tag">Networking</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">About</p>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a computing student completing a Pearson BTEC HND in Sri Lanka,
+        with the goal of a BSc top-up and eventually graduate study in
+        cybersecurity or network security abroad.
+      </p>
+      <p>
+        My work sits at the intersection of software and infrastructure.
+        I'm drawn to security tooling, DevSecOps, and systems that have to be
+        correct — not just functional.
+      </p>
+    </div>
+    <div class="about-facts">
+      <div class="fact-row">
+        <span class="fact-label">Currently</span>
+        <span class="fact-value">HND Year 2, Computing</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Location</span>
+        <span class="fact-value">Sri Lanka</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Primary language</span>
+        <span class="fact-value">Java — with Go &amp; systems C</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Recognition</span>
+        <span class="fact-value">1st Runner-up, National Hackathon</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Membership</span>
+        <span class="fact-value">CSSL — Computer Society of Sri Lanka</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Direction</span>
+        <span class="fact-value">DevSecOps / Cloud Infrastructure</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">methum thimbiripola — methum.me</span>
+  <div class="footer-links">
+    <a href="https://github.com/methum-m" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:hello@methum.me">Email</a>
+  </div>
+</footer>
+
+</body>
+</html>
